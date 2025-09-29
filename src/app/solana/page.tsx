@@ -33,8 +33,10 @@ export default function SolanaPage() {
         setError("No Solflare wallet found.");
         return;
       }
-      const resp = await provider.connect();
-      const pubkey = (resp?.publicKey || provider.publicKey)?.toString();
+      if (!provider.publicKey) {
+        await provider.connect();
+      }
+      const pubkey = provider.publicKey?.toString();
       if (pubkey) {
         setAddress(pubkey);
         localStorage.setItem("solanaAddress", pubkey);
@@ -47,8 +49,7 @@ export default function SolanaPage() {
 
   function logout() {
     const provider =
-      (window as SolflareWindow).solflare ??
-      (window as SolflareWindow).solana;
+      (window as SolflareWindow).solflare ?? (window as SolflareWindow).solana;
     try {
       provider?.disconnect?.();
     } catch {

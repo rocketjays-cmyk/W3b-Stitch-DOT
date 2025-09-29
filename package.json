@@ -1,34 +1,35 @@
 {
-  "name": "w3bstitch-web",
-  "version": "0.1.0",
+  "name": "w3b-stitch-dot",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
-    "dev": "next dev --turbopack",
-    "build": "next build --turbopack",
+    "dev": "next dev",
+    "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "typecheck": "tsc --noEmit",
+    "lint": "next lint",
+    "fmt": "prettier --write ."
   },
   "dependencies": {
     "@polkadot/api": "^16.4.6",
-    "@polkadot/extension-dapp": "^0.61.7",
-    "@polkadot/util": "^13.5.6",
     "@polkadot/util-crypto": "^13.5.6",
+    "next": "^14.2.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "@polkadot/extension-dapp": "^0.61.7",
     "@vercel/speed-insights": "^1",
     "next": "15.5.2",
     "qrcode": "^1.5.4",
-    "react": "19.1.0",
-    "react-dom": "19.1.0"
+    "@solana/web3.js": "^1.95.4"
   },
   "devDependencies": {
-    "@eslint/eslintrc": "^3",
-    "@tailwindcss/postcss": "^4",
-    "@types/node": "^20",
+    "@tailwindcss/postcss": "^4.1.12",
+    "eslint": "8.57.0",
+    "eslint-config-next": "14.2.32",
+    "prettier": "^3.3.3",
+    "typescript": "^5.9.2",
     "@types/qrcode": "^1.5.5",
-    "@types/react": "^19",
-    "@types/react-dom": "^19",
-    "eslint": "^9",
-    "eslint-config-next": "15.5.2",
-    "tailwindcss": "^4",
-    "typescript": "^5"
+    "tailwindcss": "^4.1.12",
+    "@types/react": "^19.1.12"
   }
 }

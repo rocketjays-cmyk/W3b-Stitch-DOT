@@ -3,3 +3,4 @@
 out
 .env*
 coverage
+tsconfig.tsbuildinfo

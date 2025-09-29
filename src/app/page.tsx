@@ -1,27 +1,39 @@
+import ChainIndicator from "../components/ChainIndicator";
+
 export default function Home() {
   return (
-    <main className="min-h-screen bg-gradient-to-b from-black via-gray-900 to-black text-white flex items-center justify-center">
+    <main className="relative min-h-screen bg-gradient-to-b from-black via-gray-900 to-black text-white flex items-center justify-center">
+      <div className="absolute top-4 right-4">
+        <ChainIndicator />
+      </div>
       <div className="text-center px-6">
         <h1 className="text-5xl font-extrabold mb-6 tracking-tight">
-          W3b Stitch — <span className="text-indigo-400">Proof of Authenticity</span>
+          W3b Stitch- Trust Engine
         </h1>
 
         <p className="mb-10 text-lg text-gray-300 max-w-2xl mx-auto">
-          A decentralized trust engine for verifying media, credentials, and identities.
-          Built on <span className="font-semibold">Polkadot</span> for security and interoperability.
+          A decentralized trust engine for verifying media, credentials, and
+          identities. Built on <span className="font-semibold">Polkadot</span>{" "}
+          for security and interoperability.
         </p>
 
         <div className="flex items-center justify-center gap-4 flex-wrap">
-          <a href="/polkadot" className="px-6 py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold rounded-xl shadow-lg transition">
-            🔗 Polkadot Connectivity
+          <a
+            href="/login"
+            className="px-6 py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold rounded-xl shadow-lg transition"
+          >
+            🔐 Chain Picker Login
           </a>
-          <a href="/solana" className="px-6 py-3 bg-purple-600 hover:bg-purple-700 text-white font-semibold rounded-xl shadow-lg transition">
-            🔥 Solana Connectivity
-          </a>
-          <a href="/verify" className="px-6 py-3 bg-white hover:bg-gray-200 text-black font-semibold rounded-xl shadow-lg transition">
+          <a
+            href="/verify"
+            className="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-xl shadow-lg transition"
+          >
             ✅ Try Verification
           </a>
-          <a href="/credential" className="px-6 py-3 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold rounded-xl shadow-lg transition">
+          <a
+            href="/credential"
+            className="px-6 py-3 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold rounded-xl shadow-lg transition"
+          >
             🎓 Credential → QR
           </a>
         </div>
