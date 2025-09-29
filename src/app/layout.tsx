@@ -3,6 +3,7 @@ import "./globals.css";
 import BackButton from "../components/BackButton";
 import { DidProvider } from "../components/DidProvider";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import { Geist, Geist_Mono } from "../components/fonts"; // adjust import if needed
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -26,19 +27,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-
-      <body>
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <DidProvider>
           <BackButton />
           {children}
         </DidProvider>
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        <BackButton />
-              {children}
-      <SpeedInsights />
-    </body>
-  </html>
+        <SpeedInsights />
+      </body>
+    </html>
   );
 }
