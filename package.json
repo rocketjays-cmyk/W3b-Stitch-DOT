@@ -17,6 +17,8 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "@polkadot/extension-dapp": "^0.61.7",
+    "@vercel/speed-insights": "^1",
+    "next": "15.5.2",
     "qrcode": "^1.5.4",
     "@solana/web3.js": "^1.95.4"
   },
