@@ -3,20 +3,16 @@ import "./globals.css";
 import BackButton from "../components/BackButton";
 import { DidProvider } from "../components/DidProvider";
 import { SpeedInsights } from "@vercel/speed-insights/next";
-import { Geist, Geist_Mono } from "../components/fonts"; // adjust import if needed
+import { Inter } from "next/font/google";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+// Load Inter font and set a CSS variable
+const inter = Inter({
   subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
+  variable: "--font-inter",
 });
 
 export const metadata: Metadata = {
-  title: "W3b Stitch- Trust Engine",
+  title: "W3b Stitch - Trust Engine",
   description: "Decentralized trust engine",
 };
 
@@ -27,7 +23,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+      <body className={`${inter.variable} antialiased`}>
         <DidProvider>
           <BackButton />
           {children}
