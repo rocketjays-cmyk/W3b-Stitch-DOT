@@ -36,7 +36,9 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <BackButton />
-        {children}
-        <SpeedInsights />
-      </body>
-    );  
+              {children}
+      <SpeedInsights />
+    </body>
+  </html>
+  );
+}
