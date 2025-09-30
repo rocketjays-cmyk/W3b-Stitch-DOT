@@ -6,4 +6,4 @@ app.w3bstitch.com
 
 ## 📜 License ##
 Apache-2.0
-"@ | Out-File -Encoding utf8 -FilePath README.md
+
