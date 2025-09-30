@@ -1,0 +1,35 @@
+name: Build ink! contract
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Install Rust nightly
+        uses: actions-rs/toolchain@v1
+        with:
+          toolchain: nightly
+          target: wasm32-unknown-unknown
+          components: rust-src
+          override: true
+
+      - name: Install cargo-contract
+        run: cargo install cargo-contract --force --locked
+
+      - name: Build ink! contract
+        run: cargo +nightly contract build --manifest-path contracts/anchor/Cargo.toml
+
+      - name: Upload contract artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: anchor-contract
+          path: contracts/anchor/target/ink/anchor.contract
