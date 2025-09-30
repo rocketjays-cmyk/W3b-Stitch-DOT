@@ -1,0 +1,45 @@
+{
+  "source": {
+    "hash": "0x",
+    "language": "ink! 4.0",
+    "compiler": "rustc 1.72.0"
+  },
+  "contract": {
+    "name": "anchor",
+    "version": "0.1.0",
+    "authors": ["you@example.com"]
+  },
+  "V3": {
+    "spec": {
+      "constructors": [
+        {
+          "name": "new",
+          "selector": "0x9bae9d5e",
+          "args": []
+        }
+      ],
+      "messages": [
+        {
+          "name": "anchor",
+          "selector": "0x0f1f1f1f",
+          "mutates": true,
+          "args": [
+            { "name": "hash", "type": { "displayName": ["String"], "type": 0 } }
+          ],
+          "returnType": null
+        },
+        {
+          "name": "verify",
+          "selector": "0x1f1f1f1f",
+          "mutates": false,
+          "args": [
+            { "name": "hash", "type": { "displayName": ["String"], "type": 0 } }
+          ],
+          "returnType": { "displayName": ["Option", "String"], "type": 1 }
+        }
+      ]
+    },
+    "storage": {},
+    "events": []
+  }
+}
