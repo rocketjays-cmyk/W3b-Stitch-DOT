@@ -1,16 +1,17 @@
-﻿"use client";
+"use client";
 
-import React, { useMemo, useState } from "react";
-import { fileToSha256Hex } from "../../../lib/hash";
+import React, { useMemo, useState, useEffect } from "react";
+import { ApiPromise, WsProvider } from "@polkadot/api";
+import { ContractPromise } from "@polkadot/api-contract";
+import metadata from "@/contracts/anchor.json"; // from your built ink! contract
 import { useDid } from "@/components/DidProvider";
 
 function useQueryParam(key: string) {
   const [value, setValue] = useState<string>("");
-  React.useEffect(() => {
+  useEffect(() => {
     if (typeof window === "undefined") return;
     const u = new URL(window.location.href);
-    const v = u.searchParams.get(key) || "";
-    setValue(v);
+    setValue(u.searchParams.get(key) || "");
   }, [key]);
   return value;
 }
@@ -19,32 +20,48 @@ export default function VerifyPage() {
   const qrHash = useQueryParam("hash");
   const qrDid = useQueryParam("did");
   const { did } = useDid();
-  const [calcHash, setCalcHash] = useState<string>("");
   const [status, setStatus] = useState<"idle" | "match" | "nomatch">("idle");
+  const [owner, setOwner] = useState<string | null>(null);
 
-  async function onSelect(e: React.ChangeEvent<HTMLInputElement>) {
-    const f = e.target.files?.[0] ?? null;
-    setCalcHash("");
-    setStatus("idle");
-    if (!f) return;
-    const h = await fileToSha256Hex(f);
-    setCalcHash(h);
-    if (qrHash) {
-      setStatus(h.toLowerCase() === qrHash.toLowerCase() ? "match" : "nomatch");
+  const contractAddress = "YOUR_CONTRACT_ADDRESS_HERE"; // Replace with deployed ink! contract
+
+  useEffect(() => {
+    if (!qrHash) return;
+
+    async function verifyOnChain() {
+      const wsProvider = new WsProvider("wss://rpc.shibuya.astar.network"); // or your chain
+      const api = await ApiPromise.create({ provider: wsProvider });
+      const contract = new ContractPromise(api, metadata, contractAddress);
+
+      const { output } = await contract.query.verify(
+        qrDid || qrHash, // caller address or dummy if needed
+        { gasLimit: -1 },
+        qrHash
+      );
+
+      const result = output?.toString();
+      setOwner(result || null);
+      if (result) {
+        setStatus("match");
+      } else {
+        setStatus("nomatch");
+      }
     }
-  }
+
+    verifyOnChain();
+  }, [qrHash, qrDid]);
 
   const badge = useMemo(() => {
     if (status === "match")
       return (
         <span className="px-2 py-1 rounded bg-green-100 border border-green-300">
-          ? Verified
+          ✔ Verified
         </span>
       );
     if (status === "nomatch")
       return (
         <span className="px-2 py-1 rounded bg-red-100 border border-red-300">
-          ? Not Verified
+          ✖ Not Verified
         </span>
       );
     return null;
@@ -56,23 +73,14 @@ export default function VerifyPage() {
 
       <div className="space-y-1">
         <p className="text-sm">Expected hash (from QR):</p>
-        <p className="text-xs font-mono break-all">
-          {qrHash || "(none in URL)"}
-        </p>
+        <p className="text-xs font-mono break-all">{qrHash || "(none in URL)"}</p>
         <p className="text-sm">DID: {qrDid || "(none)"}</p>
         {did && qrDid && did !== qrDid && (
           <p className="text-red-600 text-xs">Logged-in DID mismatch</p>
         )}
-      </div>
-
-      <div className="space-y-2">
-        <label className="block text-sm font-medium">
-          Upload the credential to verify
-        </label>
-        <input type="file" onChange={onSelect} className="block w-full" />
-        {calcHash && (
-          <p className="text-xs break-all">
-            Calc SHA-256: <span className="font-mono">{calcHash}</span>
+        {owner && (
+          <p className="text-sm">
+            On-chain owner: <span className="font-mono">{owner}</span>
           </p>
         )}
       </div>
@@ -80,8 +88,7 @@ export default function VerifyPage() {
       {badge}
 
       <p className="text-xs text-gray-600">
-        Tip: The issuer can also publish chain tx/receipt alongside the QR for
-        an audit trail.
+        Tip: The issuer can also publish chain tx/receipt alongside the QR for an audit trail.
       </p>
     </main>
   );
