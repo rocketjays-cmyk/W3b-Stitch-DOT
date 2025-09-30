@@ -1,8 +1,9 @@
 ## W3b Stitch — Trust Layer
+app.w3bstitch.com
+![image](https://github.com/user-attachments/assets/2d21f9f7-1f82-4717-ba63-ec5311302f08)
 
- for a live connectivity check. https://w3bstitch-web-git-feature-cred-20136e-rocketjays-cmyks-projects.vercel.app
-<img width="828" height="260" alt="Screenshot 2025-08-30 090650" src="https://github.com/user-attachments/assets/015fcb4f-90a7-4d3d-b251-a8d3360246e8" />
 
-## 📜 License
+
+## 📜 License ##
 Apache-2.0
 "@ | Out-File -Encoding utf8 -FilePath README.md
