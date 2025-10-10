@@ -6,7 +6,13 @@ import {
   ReactNode,
   useEffect,
 } from "react";
+import { WalletConnectProvider } from '@polkadot-onboard/walletconnect';
 
+const provider = new WalletConnectProvider({
+  projectId: '<your_walletconnect_project_id>',
+  relayUrl: 'wss://relay.walletconnect.com',
+});
+await provider.enable();
 type DidContextValue = {
   did: string | null;
   setDid: (did: string | null) => void;
